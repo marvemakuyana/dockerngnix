@@ -1,0 +1,11 @@
+/* Your CSS styles here */
+body {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  #data, #data2, #data3 {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }

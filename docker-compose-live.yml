@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8013:8013"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/share/nginx/html  # Mount frontend directory
+    environment:
+      - BACKEND_IP=${BACKEND_IP}  # Pass environment variable to frontend
+    networks:
+      prod2_subnet:
+        ipv4_address: ${FRONTEND_IP}  # Use environment variable
+  backend:
+    build: ./backend
+    ports:
+      - "80112:8013"
+    environment:
+      - FLASK_APP=app.py
+    volumes:
+      - ./backend:/app  # Mount backend directory
+    networks:
+      prod2_subnet:
+        ipv4_address: ${BACKEND_IP}  # Use environment variable
+
+networks:
+  prod2_subnet:
+    external: true

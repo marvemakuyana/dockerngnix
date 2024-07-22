@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8013:8013"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/share/nginx/html  # Mount frontend directory
+    environment:
+      - BACKEND_IP=backend #${BACKEND_IP}  # Assuming default is 'backend', update as needed
+  backend:
+    build: ./backend
+    ports:
+      - "8012:8012"
+    environment:
+      - FLASK_APP=app.py
+      - BACKEND_IP=backend #${BACKEND_IP}  # Pass environment variable to frontend
+    volumes:
+      - ./backend:/app  # Mount backend directory
